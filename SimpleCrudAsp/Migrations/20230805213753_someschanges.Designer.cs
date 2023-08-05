@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleCrudAsp.Data;
 
@@ -10,14 +11,16 @@ using SimpleCrudAsp.Data;
 namespace SimpleCrudAsp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230805213753_someschanges")]
+    partial class someschanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
 
-            modelBuilder.Entity("SimpleCrudAsp.models.Comment", b =>
+            modelBuilder.Entity("SimpleCrudAsp.models.Comments", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -27,16 +30,15 @@ namespace SimpleCrudAsp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PostId")
-                        .IsRequired()
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("createdAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("postId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("postId");
 
                     b.ToTable("Comments");
                 });
@@ -63,15 +65,15 @@ namespace SimpleCrudAsp.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("SimpleCrudAsp.models.Comment", b =>
+            modelBuilder.Entity("SimpleCrudAsp.models.Comments", b =>
                 {
-                    b.HasOne("SimpleCrudAsp.models.Post", "Post")
+                    b.HasOne("SimpleCrudAsp.models.Post", "post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId")
+                        .HasForeignKey("postId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Post");
+                    b.Navigation("post");
                 });
 
             modelBuilder.Entity("SimpleCrudAsp.models.Post", b =>

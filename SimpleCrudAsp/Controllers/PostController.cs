@@ -47,7 +47,7 @@ namespace SimpleCrudAsp.Controllers
         {
             if(id != post.Id)
             {
-                return BadRequest();
+                return BadRequest(); 
             }
             var posts = await _postServices.UpdatePost(id, post);
             if(posts == null)

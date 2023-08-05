@@ -21,7 +21,7 @@ namespace SimpleCrudAsp.Services
 
         public async Task<Post?> GetByID(int id)
         {
-            var postsid = await _context.Posts.FindAsync(id);
+            var postsid = await _context.Posts.Include(b=>b.Comments).FirstOrDefaultAsync(a=>a.Id == id);
             return postsid;
         }
 
